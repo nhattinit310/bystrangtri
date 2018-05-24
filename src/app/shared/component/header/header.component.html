@@ -1,0 +1,136 @@
+<nav class="navbar navbar-fixed-top" role="navigation">
+  <!-- <header> -->
+  <div class="guide">
+    <div class="row">
+      <div class="header_left col-sm-6">
+        <div class="txtCompanyName">
+          <h3>CÔNG TY CP
+            <span style="color: #a5cf3b">TRANG</span> TRÍ</h3>
+          <div (click)="toggleNav()" class="icon_toggle">
+            <img src="assets/images/icon_toggle.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="header_right col-sm-6 text-right">
+        <div class="account">
+          <div class="username">{{username}}</div>
+          <!-- <div class="user_code">TT01023</div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </header> -->
+
+
+  <div class="navigateLeft sidenav">
+    <nav>
+      <ul class="left-menu">
+        <li>
+          <a routerLink="/dashboard" [routerLinkActive]="['link-active']">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            Trang chủ</a>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.AccountManage)">
+            <a routerLink="/accounts" [routerLinkActive]="['link-active']">
+              <i class="fa fa-address-book-o" aria-hidden="true"></i>
+              Danh sách tài khoản</a>
+          </li>
+        <li *ngIf="permission?.includes(userPermission.AccountManage)">
+          <a routerLink="/group" [routerLinkActive]="['link-active']">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            Nhóm khách hàng</a>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.ReportKLTrackingQuantityCustomer) || permission?.includes(userPermission.ReportKLSaleDebt)">
+          <a (click)="toggleMenu('isCollapseSales')" [class.link-active]="rlaSP?.isActive || rlaSB?.isActive" [attr.aria-expanded]="!collapseMenu.isCollapseSales" aria-controls="collapseSales">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            Bán hàng
+            <i class="fa fa-angle-right ic-collapse-close" aria-hidden="true" *ngIf="collapseMenu.isCollapseSales"></i>
+            <i class="fa fa-angle-down ic-collapse-close" aria-hidden="true" *ngIf="!collapseMenu.isCollapseSales"></i>
+          </a>
+          <ul class="collapse-menu" id="collapseSales" [ngbCollapse]="collapseMenu.isCollapseSales">
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLTrackingQuantityCustomer)">
+              <a routerLink="/sales/productivity" [routerLinkActive]="['link-active']" #rlaSP="routerLinkActive">Báo cáo t/dõi sản lượng k/h</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLSaleDebt)">
+              <a routerLink="/sales/debt" [routerLinkActive]="['link-active']" #rlaSB="routerLinkActive">Báo cáo công nợ</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.ReportKLPurchaseDebt) || permission?.includes(userPermission.ReportKLTrackingQuantitySupplier)">
+          <a (click)="toggleMenu('isCollapsePurchase')" [class.link-active]="rlaPQ?.isActive || rlaPD?.isActive" [attr.aria-expanded]="!collapseMenu.isCollapsePurchase" aria-controls="collapsePurchase">
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            Mua hàng
+            <i class="fa fa-angle-right ic-collapse-close" aria-hidden="true" *ngIf="collapseMenu.isCollapsePurchase"></i>
+            <i class="fa fa-angle-down ic-collapse-close" aria-hidden="true" *ngIf="!collapseMenu.isCollapsePurchase"></i>
+          </a>
+          <ul class="collapse-menu" id="collapsePurchase" [ngbCollapse]="collapseMenu.isCollapsePurchase">
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLTrackingQuantitySupplier)">
+              <a routerLink="/purchase/quantity" [routerLinkActive]="['link-active']" #rlaPQ="routerLinkActive">Báo cáo sản lượng NCC</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLPurchaseDebt)">
+              <a routerLink="/purchase/debt" [routerLinkActive]="['link-active']" #rlaPD="routerLinkActive">Báo cáo công nợ</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.ReportKLBusinessEfficiency) || permission?.includes(userPermission.ReportKLBankAccount)">
+          <a (click)="toggleMenu('isCollapseReport')" [class.link-active]="rlaRB?.isActive || rlaRBank?.isActive" [attr.aria-expanded]="!collapseMenu.isCollapseReport" aria-controls="collapseReport">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Báo cáo
+            <i class="fa fa-angle-right ic-collapse-close" aria-hidden="true" *ngIf="collapseMenu.isCollapseReport"></i>
+            <i class="fa fa-angle-down ic-collapse-close" aria-hidden="true" *ngIf="!collapseMenu.isCollapseReport"></i>
+          </a>
+          <ul class="collapse-menu" id="collapseReport" [ngbCollapse]="collapseMenu.isCollapseReport">
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLBusinessEfficiency)">
+              <a routerLink="/report/business" [routerLinkActive]="['link-active']" #rlaRB="routerLinkActive">Báo cáo hiệu quả k/doanh</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportKLBankAccount)">
+              <a routerLink="/report/bank" [routerLinkActive]="['link-active']" #rlaRBank="routerLinkActive">Báo cáo t/k ngân hàng</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.GeneralComment)">
+          <a routerLink="/chat" [routerLinkActive]="['link-active']">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+            Trao đổi thông tin</a>
+        </li>
+        <li *ngIf="permission?.includes(userPermission.ReportPQBankAccount) || permission?.includes(userPermission.ReportPQCashBook) || permission?.includes(userPermission.ReportPQDeliveryList) || permission?.includes(userPermission.ReportPQReceiptShipmentInventory)">
+          <a (click)="toggleMenu('isCollapsePQ')" [class.link-active]="rlaPQB?.isActive || rlaPQC?.isActive || rlaPQM?.isActive || rlaPQO?.isActive" [attr.aria-expanded]="!collapseMenu.isCollapsePQ" aria-controls="collapsePQ">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            Trang trí Phú Quốc
+            <i class="fa fa-angle-right ic-collapse-close" aria-hidden="true" *ngIf="collapseMenu.isCollapsePQ"></i>
+            <i class="fa fa-angle-down ic-collapse-close" aria-hidden="true" *ngIf="!collapseMenu.isCollapsePQ"></i>
+          </a>
+          <ul class="collapse-menu" id="collapsePQ" [ngbCollapse]="collapseMenu.isCollapsePQ">
+            <li [class.hide]="!permission?.includes(userPermission.ReportPQBankAccount)">
+              <a routerLink="/phuquoc/bank" [routerLinkActive]="['link-active']" #rlaPQB="routerLinkActive">Tài khoản ngân hàng</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportPQCashBook)">
+              <a routerLink="/phuquoc/cash-book" [routerLinkActive]="['link-active']" #rlaPQC="routerLinkActive">Sổ quỹ tiền mặt</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportPQDeliveryList)">
+              <a routerLink="/phuquoc/merchandise" [routerLinkActive]="['link-active']" #rlaPQM="routerLinkActive">Danh sách hàng giao</a>
+            </li>
+            <li [class.hide]="!permission?.includes(userPermission.ReportPQReceiptShipmentInventory)">
+              <a routerLink="/phuquoc/output-exists" [routerLinkActive]="['link-active']" #rlaPQO="routerLinkActive">Báo cáo xuất nhập tồn</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a routerLink="/theme" [routerLinkActive]="['link-active']">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            Cài đặt chủ đề</a>
+        </li>
+        <li>
+          <a routerLink="/change-pass" [routerLinkActive]="['link-active']">
+            <i class="fa fa-key" aria-hidden="true"></i>
+            Đổi mật khẩu</a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Đăng xuất</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</nav>

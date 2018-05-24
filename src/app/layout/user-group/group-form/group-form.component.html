@@ -1,0 +1,26 @@
+<form #groupForm="ngForm" (change)="formChange(groupForm)">
+  <div class="row form-group requited">
+      <div class="col-md-2">
+        Tên nhóm
+      </div>
+      <div class="col-md-5">
+        <input class="form-control" required [(ngModel)]="group.name" name="name" #name="ngModel">
+        <div class="errors-mess">
+          <div *ngIf="(name.errors && isSubmited) || (!name?.value?.trim() && isSubmited)">
+            <span>Tên nhóm là bắt buộc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2">
+        Trạng thái
+      </div>
+      <div class="col-md-2 col-lg-1">
+        <select class="form-control" [(ngModel)]="group.isActive" name="isActive" style="min-width: 165px">
+          <option value="true">Hoạt động</option>
+          <option value="false">Ngừng hoạt động</option>
+        </select>
+      </div>
+    </div>
+</form>

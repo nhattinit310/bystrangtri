@@ -1,0 +1,107 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Danh sách nhóm khách hàng</strong>
+      </span>
+      <span class="pull-right">
+        <a (click)="deleteMultiGroupShow(deleteMultiGroup, deleteMultiGroupWrong)" class="btn_action">
+          <i class="fa fa-trash-o" aria-hidden="true"></i> Xóa
+        </a>
+      </span>
+      <span class="pull-right padding-right-15">
+        <a routerLink="/group/create" class="btn_action">
+          <i class="fa fa-plus-square-o" aria-hidden="true"></i> Thêm mới
+        </a>
+      </span>
+    </div>
+    <div class="col-md-12 page-content" [ngBusy]="busy">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table-striped">
+        <thead>
+          <tr>
+            <th style="width: 20px" class="text-center">
+              <input type="checkbox" (click)="checkAll(checkAll1.checked)" #checkAll1>
+            </th>
+            <th>Nhóm khách hàng</th>
+            <th class="text-center">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let group of pagedResult.items; let i = index">
+            <td class="text-center">
+              <input type="checkbox" [checked]="group.check" (change)="group.check = !group.check">
+            </td>
+            <td>{{group.name}}</td>
+            <td class="account-action">
+              <div>
+                <a [routerLink]="['/group/update', group.id]">
+                  <i class="fa fa-pencil color" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div>
+                <a (click)="activeOrDeactive(group)">
+                  <i class="fa fa-check-circle" [class.color]="group.isActive" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div>
+                <a (click)="openModal(deleteSingleGroup, group.id)">
+                  <i class="fa fa-trash-o color" aria-hidden="true"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination [pagedResult]="pagedResult" (pagedResultChange)="pagedResultChange($event)"></app-pagination>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteSingleGroup>
+  <div class="modal-header text-center">
+    <h4 class="modal-title">THÔNG BÁO</h4>
+  </div>
+  <div class="modal-body text-center">
+    <div class="row form-group">Bạn chắc chắn muốn xóa nhóm này?</div>
+    <div class="row form-group" style="margin-top: 45px;">
+      <div class="col-md-6">
+        <button class="btn default-btn pull-right" (click)="deleteLocation()">Có</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn pull-left" (click)="modalRef.hide()">Không</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteMultiGroup>
+  <div class="modal-header text-center">
+    <h4 class="modal-title">THÔNG BÁO</h4>
+  </div>
+  <div class="modal-body text-center">
+    <div class="row form-group">Bạn chắc chắn muốn xóa những nhóm này?</div>
+    <div class="row form-group" style="margin-top: 45px;">
+      <div class="col-md-6">
+        <button class="btn default-btn pull-right" (click)="deleteMultiLocation()">Có</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn pull-left" (click)="modalRef.hide()">Không</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteMultiGroupWrong>
+  <div class="modal-header text-center">
+    <h4 class="modal-title">THÔNG BÁO</h4>
+  </div>
+  <div class="modal-body text-center">
+    <div class="row form-group">Bạn cần chọn ít nhất 1 dòng để xóa</div>
+    <div class="row form-group" style="margin-top: 45px;">
+      <div class="col-md-12 text-center">
+        <button class="btn default-btn" (click)="modalRef.hide()">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

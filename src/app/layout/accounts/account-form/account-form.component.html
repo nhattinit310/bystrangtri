@@ -1,0 +1,170 @@
+<form #accountForm="ngForm" (change)="onFormChange(accountForm)" (load)="onFormChange(accountForm)" (ngSubmit)="onSubmit(accountForm)">
+  <div class="row form-group requited">
+    <div class="col-md-3 col-lg-2">
+      Họ
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" required [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="firstName.errors && isSubmited || !user.firstName.trim() && isSubmited">
+          <span>Họ là bắt buộc</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row form-group requited">
+    <div class="col-md-3 col-lg-2">
+      Tên
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" required [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="lastName.errors && isSubmited || !user.lastName.trim() && isSubmited">
+          <span>Tên là bắt buộc</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group requited">
+    <div class="col-md-3 col-lg-2">
+      Tên tài khoản
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" required minlength="6" [(ngModel)]="user.userName" name="userName" #userName="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="userName.errors && userName.errors.required && isSubmited || !user.userName.trim() && isSubmited">
+          <span>Tên tài khoản là bắt buộc</span>
+        </div>
+        <div *ngIf="userName.errors && userName.errors.minlength && isSubmited">
+          <span>Tên tài khoản phải nhiều hơn 6 ký tự</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group requited">
+    <div class="col-md-3 col-lg-2">
+      Email
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" [(ngModel)]="user.email" name="email"
+        #email="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="email.errors && email.errors.required && isSubmited || !user.email.trim() && isSubmited">
+          <span>Email là bắt buộc</span>
+        </div>
+        <div *ngIf="email.errors && email.errors.pattern && isSubmited">
+          <span>Email không đúng định dạng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group requited" *ngIf="isCreate">
+    <div class="col-md-3 col-lg-2">
+      Mật khẩu
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" type="password" required minlength="6" [(ngModel)]="user.password" name="password" #password="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="password.errors && password.errors.required && isSubmited">
+          <span>Mật khẩu là bắt buộc</span>
+        </div>
+        <div *ngIf="password.errors && password.errors.minlength && isSubmited">
+          <span>Mật khẩu phải nhiều hơn 6 ký tự</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group requited" *ngIf="isCreate">
+    <div class="col-md-3 col-lg-2">
+      Xác nhận mật khẩu
+    </div>
+    <div class="col-md-5">
+      <input class="form-control" type="password" required [(ngModel)]="user.reTypePass" name="reTypePass" validateEqual="password"
+        #reTypePass="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="reTypePass.errors && reTypePass.errors.required && isSubmited">
+          <span>Xác nhận mật khẩu là bắt buộc</span>
+        </div>
+        <div *ngIf="reTypePass.errors && !reTypePass.errors.required && isSubmited">
+          <span>Xác nhận mật khẩu không đúng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3 col-lg-2">
+      Trạng thái
+    </div>
+    <div class="col-md-3 col-lg-2">
+      <select class="form-control" name="status" [(ngModel)]="user.status">
+        <option [value]="'Active'">Hoạt động</option>
+        <option [value]="'UnActive'">Ngừng hoạt động</option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3 col-lg-2">
+      Là khách hàng
+    </div>
+    <div class="col-md-3 col-lg-2">
+      <input type="checkbox" style="float: left; position: relative; top: 5px" [checked]="user.isClient" (change)="isClientChange(user.isClient)">
+      <!-- <select style="width: calc(100% - 20px); margin-left: 20px;" class="form-control" [disabled]="!user.isClient" name="client" [(ngModel)]="user.client">
+        <option value="">- Chọn khách hàng -</option>
+        <option *ngFor="let customer of listCustomer" [value]="customer.name">{{customer.value}}</option>
+      </select> -->
+      <div class="autocomplete-wrapper">
+        <p-autoComplete [disabled]="!user.isClient" (onSelect)="onSelect($event)" (onBlur)="onBlur($event.target.value)" [(ngModel)]="customerId"
+          name="customerId" [suggestions]="listCustomer" [forceSelection]="true" [delay]="'400'" [emptyMessage]="'Không có dữ liệu'"
+          placeholder="Chọn khách hàng" [immutable]="true" [dropdown]="true" (completeMethod)="searchCustomers($event.query)"
+          [tabindex]="'2'" field="value" dataKey="name" #customerList>
+        </p-autoComplete>
+        <span class="input-group-addon">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+      <div class="errors-mess">
+        <div *ngIf="user.isClient && user.client == '' && isSubmited">
+          <span>Bạn chưa chọn khách hàng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3 col-lg-2">
+
+    </div>
+    <div class="col-md-5">
+
+    </div>
+
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3 col-lg-2">
+      Nhóm
+    </div>
+    <div class="col-md-3 col-lg-2">
+      <select class="form-control" name="locationId" [(ngModel)]="user.groupId">
+        <option value="0">- Chọn nhóm -</option>
+        <option *ngFor="let location of locationList | async" [value]="location.name">{{location.value}}</option>
+      </select>
+      <div class="errors-mess">
+        <div *ngIf="user.isClient && user.groupId == 0 && isSubmited">
+          <span>Bạn chưa chọn nhóm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3 col-lg-2">
+      Quyền
+    </div>
+    <div class="col-md-9 col-lg-10 padding-left-0 padding-right-0">
+      <ng-container *ngFor="let pms of user.permission; let i = index">
+        <div class="col-md-6 form-group" *ngIf="pms.showWithClient">
+          <input name="i" type="checkbox" [checked]="pms.value" (change)="checkPermission(i)"> {{pms.text}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,46 @@
+<div class="table-responsive" [ngBusy]="busy">
+    <table *ngIf="pagedResult" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table table-striped">
+        <thead>
+          <tr>
+            <th style="min-width: 100px;" class="text-center">Ngày tháng</th>
+            <th class="text-center">Diễn giải</th>
+            <th class="text-center">Gửi vào</th>
+            <th class="text-center">Rút ra</th>
+            <th class="text-center">Còn lại</th>
+          </tr>
+          <tr class="odd">
+            <th class="text-center" style="background-color: #f9f9f9;">A</th>
+            <th class="text-center" style="background-color: #f9f9f9;">B</th>
+            <th class="text-center" style="background-color: #f9f9f9;">1</th>
+            <th class="text-center" style="background-color: #f9f9f9;">2</th>
+            <th class="text-center" style="background-color: #f9f9f9;">3</th>
+          </tr>
+          <tr class="even">
+            <th class="text-center" style="background-color: white;"></th>
+            <th style="background-color: white;">Số dư đầu kỳ</th>
+            <th class="text-center" style="background-color: white;"></th>
+            <th class="text-center" style="background-color: white;"></th>
+            <th class="number-right" style="background-color: white;">{{pagedResult.extraData.openingBalanceAmount | vndCurrency}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let acc of pagedResult.items; let i = index">
+            <td class="text-center">{{acc.exchangeDate * 1000 | date:'dd/MM/yyyy'}}</td>
+            <td>{{acc.exchangeDesc}}</td>
+            <td class="number-right">{{acc.payIntoAmount | vndCurrency}}</td>
+            <td class="number-right">{{acc.drawAmount | vndCurrency}}</td>
+            <td class="number-right">{{acc.balanceAmount | vndCurrency}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>Cộng cuối kỳ</td>
+            <td class="number-right">{{pagedResult.extraData.totalPayIntoAmount | vndCurrency}}</td>
+            <td class="number-right">{{pagedResult.extraData.totalDrawAmount | vndCurrency}}</td>
+            <td class="number-right">{{pagedResult.extraData.closingBalanceAmount | vndCurrency}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <app-pagination [pagedResult]="pagedResult" (pagedResultChange)="pagedResultChange($event)"></app-pagination>
+</div>

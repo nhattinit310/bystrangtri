@@ -1,0 +1,131 @@
+.txtCompanyName h3{
+    font-size: 1.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 35px;
+    padding-left: 15px;
+}
+
+.icon_toggle{
+    display: inline-block;
+    padding: 5px;
+    vertical-align: super;
+    cursor: pointer;
+}
+
+.ic-collapse-close {
+    left: 230px !important;
+}
+
+.account{
+    display: inline-block;
+    margin-top: 15px;
+    padding-right: 30px;
+}
+
+.account .username{
+    padding-left: 15px;
+    font-size: 1.5rem;
+    background: url('/assets/images/icon_user.png') no-repeat left center;
+    font-weight: bold;
+}
+
+.user_code{
+    font-size: 1.2rem;
+}
+
+.header_left{
+    padding-top: 6px;
+    padding-bottom: 15px;
+}
+
+.push-right {
+    margin-left: 260px;
+}
+
+.left-menu {
+    padding-left: 0;
+    li {
+        border-bottom: 1px solid #dcdcdc;
+    }
+}
+
+.guide {
+    border-bottom: 1px solid #dcdcdc;
+    background-color: white;
+}
+
+.navigateLeft ul{
+    list-style: none;
+}
+
+.navigateLeft{
+    width: 260px;
+    height: calc(100vh + (-60px));
+    position: absolute;
+    top: 0;
+    left: -260px;
+    background-color: #f0f8fa;
+    overflow: auto;
+    transition: 0.5s;
+    margin-top: 71px;
+    // padding-bottom: 76px;
+}
+
+.navigateLeft ul li:hover a, .navigateLeft ul li a.active, 
+.navigateLeft ul li:hover a i, 
+.navigateLeft ul li a.active i{
+    color: #f03;
+    text-decoration: none;
+}
+
+.navigateLeft ul li:hover .collapse-menu li a{
+    color: black;
+}
+
+.navigateLeft .collapse-menu li:hover a, .navigateLeft .collapse-menu li a.active, 
+// .navigateLeft .collapse-menu li,
+// .navigateLeft .collapse-menu li:hover a i, 
+// .navigateLeft .collapse-menu li a.active i
+{
+    color: #f03 !important;
+}
+
+.navigateLeft .collapse-menu li:hover a.link-active, .navigateLeft .collapse-menu li a.active {
+    color: white !important;
+}
+
+.collapse-menu li a:hover .link-active {
+    color: white !important;
+}
+
+.navigateLeft ul li:hover a::before, .navigateLeft ul li a.active::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #f03;
+}
+
+.navigateLeft ul li a{
+    font-size: 1.5rem;
+    color: #282828;
+    line-height: 4.5rem;
+    display: block;
+    padding-left: 65px;
+    position: relative;
+    transition: .3s;
+    color: #282828;
+}
+
+.navigateLeft ul li a i{
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 27px;
+    transform: translateY(-50%);
+    transition: .3s;
+    color: #aaaaaa;
+}

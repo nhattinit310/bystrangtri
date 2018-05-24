@@ -1,0 +1,32 @@
+<app-frames>
+  <form #forgotForm="ngForm" (change)="formChange(forgotForm)">
+    <div class="text-center">
+      <h4>Thay đổi mật khẩu</h4>
+    </div>
+    <div class="form-group padding-top-15">
+      <label>Mật khẩu mới</label>
+      <input class="form-control" type="password" required name="password" [(ngModel)]="password" #pas="ngModel">
+      <div class="errors-mess">
+          <div *ngIf="pas.errors && isSubmit">
+            <span>Mật khẩu là bắt buộc</span>
+          </div>
+        </div>
+    </div>
+    <div class="form-group padding-top-15">
+      <label>Xác nhận mật khẩu mới</label>
+      <input class="form-control" type="password" required name="reTypePass" [(ngModel)]="reTypePass" #reTypePas="ngModel">
+      <div class="errors-mess">
+          <div>
+            <span *ngIf="reTypePas.errors && isSubmit">Xác nhận mật khẩu là bắt buộc</span>
+            <span *ngIf="!pas.errors && !reTypePas.errors && (password != reTypePass)">Xác nhận mật khẩu không đúng</span>
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <a style="width: 100%" class="btn btn-danger" (click)="resetPass()">Gửi</a>
+    </div>
+    <div class="form-group text-center" style="padding-top: 41px">
+      <a routerLink="/login">Trở về Đăng nhập</a>
+    </div>
+  </form>
+</app-frames>

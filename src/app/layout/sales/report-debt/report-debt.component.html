@@ -1,0 +1,114 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Báo cáo công nợ</strong>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <div class="form-group row">
+        <div class="col-md-12 col-lg-8 col-custom-1200-1360 padding-left-0">
+          <div class="col-md-2 line-height-34" *ngIf="!currentCustomerId">Chọn dữ liệu</div>
+          <div class="col-md-2 padding-left-0" *ngIf="!currentCustomerId">
+            <!-- <select class="form-control" [(ngModel)]="customerId" #customerList>
+              <option disabled value="0">Khách hàng</option>
+              <option *ngFor="let customer of listCustomer" [value]="customer.name">{{customer.value}}</option>
+            </select> -->
+            <div class="autocomplete-wrapper">
+              <p-autoComplete [(ngModel)]="customerId" (onBlur)="onBlur($event.target.value)" [suggestions]="listCustomer" [forceSelection]="true" [delay]="'400'" [emptyMessage]="'Không có dữ liệu'"
+                placeholder="Khách hàng" [immutable]="true" [dropdown]="true" (completeMethod)="searchCustomers($event.query)"
+                [tabindex]="'2'" field="value" dataKey="name" #customerList>
+              </p-autoComplete>
+              <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-2 padding-left-0" [class.margin-left-15]="currentCustomerId">
+            <input class="form-control" placeholder="Từ ngày" [(ngModel)]="fromDate" bsDatepicker [bsConfig]="bsConfig">
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Đến ngày" [(ngModel)]="toDate" bsDatepicker [bsConfig]="bsConfig">
+          </div>
+          <button (click)="getReport()" class="btn default-btn">OK</button>
+        </div>
+      </div>
+      <div class="errors-mess">
+        <span *ngIf="fromDate > toDate">Ngày bắt đầu không được lớn hơn ngày kết thúc</span>
+        <span *ngIf="!fromDate && toDate && isSubmit">Bạn chưa chọn ngày bắt đầu</span>
+        <span *ngIf="fromDate && !toDate && isSubmit">Bạn chưa chọn ngày kết thúc</span>
+        <span *ngIf="!fromDate && !toDate && isSubmit">Bạn chưa chọn ngày bắt đầu và kết thúc</span>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12" *ngIf="pagedResult">
+          <div class="col-md-12 col-lg-12 padding-left-0 nowrap">
+            Tên khách hàng:
+            <label *ngIf="customerId?.value">{{customerId?.value}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group" *ngIf="pagedResult && pagedResult.pageCount">
+        <div class="col-md-12">
+          Số dư nợ đầu ngày
+          <span>{{fromDate | date: 'dd/MM/yyyy'}}</span>:
+          <span>
+            <label>{{pagedResult.extraData.openingBalanceAmount | vndCurrency}}</label>
+            <label *ngIf="pagedResult.extraData.openingBalanceAmount == 0">0</label>
+          </span>
+        </div>
+      </div>
+      <div class="table-responsive" [ngBusy]="busy">
+        <table *ngIf="pagedResult" datatable [dtOptions]="dtOptions" class="row-border hover table table-striped">
+          <thead>
+            <tr>
+              <th style="min-width: 100px">Ngày</th>
+              <th>Diễn giải</th>
+              <th style="min-width: 40px" class="text-center">SL</th>
+              <th>Đơn giá</th>
+              <th>Thành tiền</th>
+              <th>Thanh toán</th>
+              <th>Nợ lũy kế</th>
+              <th>Số PT</th>
+              <th>Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let debt of listDebtCustomer; let i = index">
+              <td>{{debt.documentDate | date: 'dd/MM/yyyy'}}</td>
+              <td>{{debt.description}}</td>
+              <td class="number-right">{{debt.quantity}}</td>
+              <td class="number-right">{{debt.unitPrice | vndCurrency}}</td>
+              <td class="number-right">{{debt.amount | vndCurrency}}</td>
+              <td class="number-right">{{debt.paymentAmount | vndCurrency}}</td>
+              <td class="number-right" [class.text-red]="debt.accumulatedDebtAmount < 0">{{debt.accumulatedDebtAmount | vndCurrency | formatAbs}}</td>
+              <td class="number-right">{{debt.vehicleNoPlate}}</td>
+              <td>{{debt.note}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <strong>Cộng phát sinh</strong>
+              </td>
+              <td class="number-right">{{pagedResult.extraData?.totalAmount | vndCurrency}}</td>
+              <td class="number-right">{{pagedResult.extraData?.totalPaymentAmount | vndCurrency}}</td>
+              <td class="number-right">{{pagedResult.extraData?.totalAccumulatedDebtAmount | vndCurrency}}</td>
+              <td colspan="2"></td>
+            </tr>
+          </tfoot>
+        </table>
+        <app-pagination [pagedResult]="pagedResult" (pagedResultChange)="pagedResultChange($event)"></app-pagination>
+      </div>
+      <div class="row form-group" *ngIf="pagedResult && pagedResult.pageCount">
+        <div class="col-md-12">
+          Số dư nợ cuối ngày
+          <span>{{toDate | date: 'dd/MM/yyyy'}}</span>:
+          <span>
+            <label>{{pagedResult.extraData.closingBalanceAmount | vndCurrency}}</label>
+            <label *ngIf="pagedResult.extraData.closingBalanceAmount == 0">0</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

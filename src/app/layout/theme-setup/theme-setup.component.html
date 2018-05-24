@@ -1,0 +1,42 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Cài đặt chủ đề</strong>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <div class="row padding-left-15 form-group">
+        Chọn chủ đề
+      </div>
+      <div class="row form-group">
+        <div class="col-md-2 text-center" *ngFor="let theme of themes; let i = index">
+          <div class="theme-img" (click)="chooseTheme(i)">
+            <input type="checkbox" *ngIf="theme.active" [checked]="theme.active" style="position: absolute; right: 25px; top: 8px;">
+            <img style="width: 100%;" (click)="clickImage($event.target)" src="/assets/images/themes/{{theme.url}}" crossOrigin="anonymous">
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <label class="col-md-8 line-height-34 label-file" for="upload-photo">{{fileName}}</label>
+          <button class="btn btn-default margin-left-15" (click)="inputFile.click()">Chọn file</button>
+          <input type="file" class="hide" name="photo" id="upload-photo" accept="image/*" (change)="onFileChange($event)" #inputFile
+          />
+
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12 text-err" *ngIf="messErr">{{messErr}}</div>
+        <div class="col-md-12">Ảnh phải có dung lượng nhỏ hơn 800kb, kích thước phải nhỏ hơn 1920x1080px.</div>
+      </div>
+      <div class="row form-group" style="padding-top: 60px;">
+        <div class="col-md-12">
+          <button type="button" (click)="saveTheme()" class="btn default-btn">Lưu</button>
+          <!-- <button class="btn cancel-btn margin-left-15">Hủy</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

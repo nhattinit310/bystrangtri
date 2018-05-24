@@ -1,0 +1,33 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Danh sách thông báo</strong>
+      </span>
+      <span class="pull-right" *ngIf="userId == 1">
+        <a routerLink="articles-create" class="btn_action">
+          <i class="fa fa-plus-square-o" aria-hidden="true"></i> Tạo mới
+        </a>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <ul id="list-notice" style="min-height: 120px">
+        <li *ngFor="let notice of listTotal">
+          <dl>
+            <dt>{{notice.title}}</dt> 
+            <dd>Nhóm: {{notice.locationName}}</dd>
+            <dd><pre>{{notice.content}}</pre></dd>
+            <dd>
+              <time>{{notice.created | amCalendar}}</time>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+      <div [ngBusy]="busy"></div>
+      <div class="btn_view_more text-center" *ngIf="pagedResult.currentPage < pagedResult.pageCount">
+        <!-- <span><div class="arrow-circle"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></div></span> -->
+        <a class="pointer" (click)="viewMore()">Xem thêm</a>
+      </div>
+    </div>
+  </div>
+</div>

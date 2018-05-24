@@ -1,0 +1,32 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span class="padding-right-15">
+        <a class="" routerLink="/accounts">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </span>
+      <span>
+        <strong>Cập nhật phân quyền {{user?.firstName}} {{user?.lastName}}</strong>
+      </span>
+
+      <span class="pull-right">
+        <a (click)="updatePermission()" class="btn_action">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+        </a>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <div class="row form-group">
+        <div class="col-md-9 col-lg-10 padding-left-0 padding-right-0" *ngIf="user">
+          <ng-container *ngFor="let pms of user.permission; let i = index">
+            <div class="col-md-6 form-group">
+              <input name="i" type="checkbox" [checked]="pms.value" (change)="checkPermission(i)"> {{pms.text}}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

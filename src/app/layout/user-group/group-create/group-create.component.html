@@ -1,0 +1,23 @@
+<div class="padding-left-right-15">
+    <div class="row">
+      <div class="col-lg-12 page-title">
+          <span class="padding-right-15">
+              <a class="" routerLink="/group">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </a>
+            </span>
+            <span>
+              <strong>Thêm mới nhóm khách hàng</strong>
+            </span>
+      
+            <span class="pull-right">
+              <a (click)="createGroup()" class="btn_action">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+              </a>
+            </span>
+      </div>
+      <div class="col-md-12 page-content">
+        <group-form [group]="group"></group-form>
+      </div>
+    </div>
+  </div>

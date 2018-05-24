@@ -1,0 +1,97 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Báo cáo công nợ</strong>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <div class="form-group row">
+        <div class="col-md-12 col-lg-8 col-custom-1200-1360 padding-left-0">
+          <div class="col-md-2 line-height-34">Chọn dữ liệu</div>
+          <div class="col-md-2 padding-left-0">
+            <!-- <select class="form-control" [(ngModel)]="customerId">
+              <option value="0" disabled>Nhà cung cấp</option>
+              <option *ngFor="let customer of listCustomer | async" [value]="customer.name">{{customer.value}}</option>
+            </select> -->
+            <div class="autocomplete-wrapper">
+              <p-autoComplete [(ngModel)]="supplierId" (onBlur)="onBlur($event.target.value)" [suggestions]="listSupplier" [forceSelection]="true" [delay]="'400'" [emptyMessage]="'Không có dữ liệu'"
+                placeholder="Chọn nhà cung cấp" [immutable]="true" [dropdown]="true" (completeMethod)="searchSuppliers($event.query)"
+                [tabindex]="'2'" field="value" dataKey="name">
+              </p-autoComplete>
+              <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input type="text" class="form-control" bsDatepicker [bsConfig]="bsConfig" placeholder="Từ ngày" [(ngModel)]="fromDate">
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Đến ngày" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="toDate">
+          </div>
+          <button class="btn default-btn" (click)="getReport()">OK</button>
+        </div>
+      </div>
+      <div class="errors-mess">
+        <span *ngIf="fromDate > toDate">Ngày bắt đầu không được lớn hơn ngày kết thúc</span>
+        <span *ngIf="!fromDate && toDate && isSubmit">Bạn chưa chọn ngày bắt đầu</span>
+        <span *ngIf="fromDate && !toDate && isSubmit">Bạn chưa chọn ngày kết thúc</span>
+        <span *ngIf="!fromDate && !toDate && isSubmit">Bạn chưa chọn ngày bắt đầu và kết thúc</span>
+      </div>
+      <div class="table-responsive" [ngBusy]="busy">
+        <table *ngIf="pagedResult" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center" rowspan="2">Tên đối tượng</th>
+              <th class="text-center" colspan="2">Đầu kỳ</th>
+              <th class="text-center" colspan="2">Phát sinh</th>
+              <th class="text-center" colspan="2">Cuối kỳ</th>
+            </tr>
+            <tr>
+              <th class="text-center">Nợ</th>
+              <th class="text-center">Có</th>
+              <th class="text-center">Nợ</th>
+              <th class="text-center">Có</th>
+              <th class="text-center">Nợ</th>
+              <th class="text-center">Có</th>
+            </tr>
+            <tr>
+              <th style="min-width: 200px" class="text-center">A</th>
+              <th class="text-center">1</th>
+              <th class="text-center">2</th>
+              <th class="text-center">3</th>
+              <th class="text-center">4</th>
+              <th class="text-center">5</th>
+              <th class="text-center">6</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let debt of pagedResult.items; let i = index">
+              <td [title]="debt.objectName">{{debt.objectName}}</td>
+              <td class="text-right"><ng-container *ngIf="debt.openingBalanceAmount < 0">{{debt.openingBalanceAmount | vndCurrency: '' : 2 | mathAbs}}</ng-container></td>
+              <td class="text-right"><ng-container *ngIf="debt.openingBalanceAmount > 0">{{debt.openingBalanceAmount | vndCurrency: '' : 2 | mathAbs}}</ng-container></td>
+              <td class="text-right">{{debt.inPeriodDebitAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{debt.inPeriodCreditAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right"><ng-container *ngIf="debt.closingBalanceAmount < 0">{{debt.closingBalanceAmount | vndCurrency: '' : 2 | mathAbs}}</ng-container></td>
+              <td class="text-right"><ng-container *ngIf="debt.closingBalanceAmount > 0">{{debt.closingBalanceAmount | vndCurrency: '' : 2 | mathAbs}}</ng-container></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Tổng cộng</td>
+              <td class="text-right">{{pagedResult.extraData.totalOpeningCreditAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{pagedResult.extraData.totalOpeningDebitAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{pagedResult.extraData.totalInPeriodDebitAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{pagedResult.extraData.totalInPeriodCreditAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{pagedResult.extraData.totalClosingCreditAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+              <td class="text-right">{{pagedResult.extraData.totalClosingDebitAmount | vndCurrency: '' : 2 | mathAbs}}</td>
+            </tr>
+          </tfoot>
+        </table>
+        <app-pagination [pagedResult]="pagedResult" (pagedResultChange)="pagedResultChange($event)"></app-pagination>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.hideMe {
+    position: fixed;
+    right: 20px;
+    top: 146px;
+    .close {
+        margin-left: 20px;
+    }
+    z-index: 999;
+}

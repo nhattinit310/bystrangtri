@@ -1,0 +1,56 @@
+textarea {
+    resize: none;
+}
+
+.arrow-circle {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-color: lightgray;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.btn_view_more a{
+    color: #777777;
+    font-size: 1.6rem;
+    padding-left: 8px;
+}
+
+.text-name-circle {
+    width: 80px;
+    min-width: 80px;
+    float: left;
+}
+
+.text-circle {
+    text-align: center;
+    background-color: red;
+    padding: 20px;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    position: relative;
+    top: 12px;
+}
+
+.chat-box {
+    // border: 1px solid;
+    padding: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 5px;
+    pre {
+        border: none;
+        padding: 0;
+        background-color: transparent;
+        font-size: 14px;
+        white-space: pre-line;
+        word-break: break-word;
+    }
+    .chat-time {
+        font-size: 0.9em;
+        opacity: 0.9;
+        font-style: italic;
+    }
+}

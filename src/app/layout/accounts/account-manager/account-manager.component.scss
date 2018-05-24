@@ -1,0 +1,36 @@
+$color-red: #f3666b;
+$color-orange: #ff8a00;
+$color-blue: #12a5b6;
+$color-green: #00a01a;
+$color-gray: #737373;
+
+.page-content {
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+
+.account-action {
+    div {
+        width: 25%;
+        float: left;
+        text-align: center;
+    }
+    .fa-pencil.color {
+        color: $color-red;
+    }
+    .fa-key.color {
+        color: $color-orange;
+    }
+    .fa-lock.color {
+        color: $color-blue;
+    }
+    .fa-check-circle {
+        color: $color-gray;
+    }
+    .fa-check-circle.color {
+        color: $color-green;
+    }
+    .fa-trash-o.color {
+        color: $color-gray;
+    }
+}

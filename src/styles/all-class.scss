@@ -1,0 +1,124 @@
+.login-footer {
+    width: 100% !important;
+}
+
+.table-responsive {
+    padding-bottom: 20px;
+}
+
+.link-active {
+    color: red !important;
+    text-decoration: none;
+    i::before {
+        color: red;
+    }
+}
+
+.collapse-menu .link-active {
+    background-color: #ce4747;
+    color: white !important;
+}
+
+.page-title {
+    background-color: red;
+    color: white;
+    padding: 16px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    a {
+        color: white;
+    }
+    strong {
+        font-size: 1.2em;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.page-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.padding-right-15 {
+    padding-right: 15px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-top-15 {
+    padding-top: 15px;
+}
+
+.padding-left-30 {
+    padding-left: 30px !important;
+}
+
+.padding-left-45 {
+    padding-left: 45px !important;
+}
+
+.padding-left-0 {
+    padding-left: 0;
+}
+
+.padding-left-right-15 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.padding-right-0 {
+    padding-right: 0;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.requited > div:first-child::after {
+    content: '*';
+    color: red;
+    position: relative;
+    right: 0;
+    float: right;
+}
+
+.number-right {
+    text-align: right;
+}
+
+.line-height-34 {
+    line-height: 34px;
+}
+
+.errors-mess {
+    span {
+        color: red;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1359px) {
+    .col-custom-1200-1360 {
+        width: 100%;
+    }
+}
+

@@ -1,0 +1,57 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-md-12 page-title">
+      <span>
+        <a class="rollback_home" routerLink="/dashboard">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </span>
+      <span>
+        <strong>Thêm mới thông báo</strong>
+      </span>
+      <span class="pull-right">
+        <a (click)="createNotice()">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+        </a>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <form class="form-horizontal col-sm-8 col-sm-offset-1" #noticeForm="ngForm" (change)="formChange(noticeForm)">
+        <div class="form-group requited">
+          <div class="col-md-3 text-left control-label">
+            <label>Tiêu đề</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" class="form-control" required [(ngModel)]="notice.title" name="title" #title="ngModel">
+            <div class="errors-mess">
+              <div *ngIf="title.errors && isSubmit || !notice.title.trim() && isSubmit">
+                <span>Tiêu đề là bắt buộc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group requited">
+          <div class="col-md-3 text-left control-label">
+            <label>Nội dung</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="form-control" rows="6" required [(ngModel)]="notice.content" name="content" #content="ngModel"></textarea>
+            <div class="errors-mess">
+              <div *ngIf="content.errors && isSubmit || !notice.content.trim() && isSubmit">
+                <span>Nội dung là bắt buộc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 text-left control-label">Nhóm khách hàng</label>
+          <div class="col-md-9">
+            <select class="form-control" name="locationId" [(ngModel)]="notice.locationId">
+              <option *ngFor="let location of locationList | async" [value]="location.name">{{location.value}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

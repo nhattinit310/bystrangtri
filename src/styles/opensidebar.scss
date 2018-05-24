@@ -1,0 +1,135 @@
+.collapse-menu {
+    a {
+        // padding-left: 25px !important;
+        margin-left: -40px;
+    }
+    li a::before, li a.active::before {
+        width: 0 !important;
+        height: 0 !important;
+    }
+    li:last-child {
+        border-bottom: none !important;
+    }
+}
+
+
+@media screen and (max-width: 1600px) {
+    .push-right {
+        .sidenav {
+            left: 0 !important;
+        }
+        .layout-content {
+            margin-left: 260px !important;
+        }
+        .request-date {
+            display: none;
+        }
+        .result-date {
+            display: none;
+        }
+        .result {
+            margin-left: 15px !important;
+        }
+        .calendar-detail {
+            .container {
+                width: 85% !important;
+            }
+        }
+        .news-detail {
+            .container {
+                width: 95% !important;
+            }
+        }
+        .emr-content {
+            .container {
+                width: 95% !important;
+            }
+        }
+        .attached-services-summary {
+            .container {
+                width: 70%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1601px) {
+    .push-right {
+        .sidenav {
+            left: 0 !important;
+        }
+        .layout-content {
+            margin-left: 260px !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1360px) {
+    .push-right {
+        .sidenav {
+            left: 0 !important;
+        }
+        .layout-content {
+            margin-left: 260px !important;
+        }
+        .result {
+            margin-left: 5px !important;
+        }
+        .calendar-detail {
+            .container {
+                width: 90% !important;
+            }
+        }
+        .schedule-form.container {
+            width: 92% !important;
+        }
+        .no-display {
+            display: none;
+        }
+        request-create-page,
+        request-edit-page {
+            .container {
+                width: 95% !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    request-create-page,
+    request-edit-page, event-manager, event-create, event-update, partner-medical, phr-list, phr-create, phr-detail, phr-update, app-dashboard {
+        .container {
+            width: 90% !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .push-right {
+        .result {
+            margin-left: 6px !important;
+            font-size: 9px !important;
+        }
+
+        contact-detail-page, app-dashboard, event-manager, event-create, event-update, partner-medical, phr-list, phr-create, phr-detail, phr-update{
+            .container{
+                width: 85% !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1190px) {
+    .push-right {
+        .schedule-form.container {
+            width: 97% !important;
+            .form-gray {
+                padding: 20px 25px;
+            }
+        }
+    }
+
+    .btn-remove-item {
+        padding-left: 16px !important;
+    }
+}

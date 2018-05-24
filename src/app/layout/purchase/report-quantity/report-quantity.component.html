@@ -1,0 +1,66 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Báo cáo sản lượng nhà cung cấp</strong>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <div class="form-group row">
+        <div class="col-md-12 col-lg-8 col-custom-1200-1360 padding-left-0">
+          <div class="col-md-2 line-height-34">Chọn dữ liệu</div>
+          <div class="col-md-2 padding-left-0">
+            <!-- <select class="form-control" [(ngModel)]="supplierId">
+              <option value="0">Chọn nhà cung cấp</option>
+              <option *ngFor="let supplier of listSupplier | async" [value]="supplier.name">{{supplier.value}}</option>
+            </select> -->
+            <div class="autocomplete-wrapper">
+              <p-autoComplete [(ngModel)]="supplierId" (onBlur)="onBlur($event.target.value)" [suggestions]="listSupplier" [forceSelection]="true" [delay]="'400'" [emptyMessage]="'Không có dữ liệu'"
+                placeholder="Chọn nhà cung cấp" [immutable]="true" [dropdown]="true" (completeMethod)="searchSuppliers($event.query)"
+                [tabindex]="'2'" field="value" dataKey="name">
+              </p-autoComplete>
+              <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Từ ngày" bsDatepicker [(ngModel)]="fromDate" [bsConfig]="bsConfig">
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Đến ngày" bsDatepicker [(ngModel)]="toDate" [bsConfig]="bsConfig">
+          </div>
+          <button class="btn default-btn" (click)="getReport()">OK</button>
+        </div>
+      </div>
+      <div class="errors-mess">
+        <span *ngIf="fromDate > toDate">Ngày bắt đầu không được lớn hơn ngày kết thúc</span>
+        <span *ngIf="!fromDate && toDate && isSubmit">Bạn chưa chọn ngày bắt đầu</span>
+        <span *ngIf="fromDate && !toDate && isSubmit">Bạn chưa chọn ngày kết thúc</span>
+        <span *ngIf="!fromDate && !toDate && isSubmit">Bạn chưa chọn ngày bắt đầu và kết thúc</span>
+      </div>
+      <div class="table-responsive" [ngBusy]="busy">
+        <table *ngIf="pagedResult && pagedResult.pageCount || isSearch" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+          class="row-border hover table-striped">
+          <thead>
+            <tr>
+              <th style="min-width: 120px" class="text-center">Tên nhà cung cấp</th>
+              <th class="text-center">Tên sản phẩm</th>
+              <th class="text-center">Số lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let quantity of listQuantitySupplier; let i = index">
+              <td data-text="quantity.supplierName">{{quantity.supplierName}}</td>
+              <td>{{quantity.productName}}</td>
+              <td class="number-right">
+                <strong>{{quantity.quantity}}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-pagination [pagedResult]="pagedResult" (pagedResultChange)="pagedResultChange($event)"></app-pagination>
+      </div>
+    </div>
+  </div>
+</div>

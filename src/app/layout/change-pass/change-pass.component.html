@@ -1,0 +1,52 @@
+<div class="padding-left-right-15">
+  <form #passWordForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-lg-12 page-title">
+        <span>
+          <strong>Thay đổi mật khẩu</strong>
+        </span>
+        <span class="pull-right">
+          <a (click)="onSubmit()" class="btn_action">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+          </a>
+        </span>
+      </div>
+      <div class="col-md-12 page-content">
+        <div class="row form-group requited">
+          <div class="col-md-2">
+            Mật khẩu hiện tại
+          </div>
+          <div class="col-md-5">
+            <input class="form-control" required type="password" name="currentPass" [(ngModel)]="currentPass">
+            <div *ngIf="isSubmit && !currentPass.trim()" class="errors-mess">
+              <span>Mật khẩu hiện tại là bắt buộc</span>
+            </div>
+          </div>
+        </div>
+        <div class="row form-group requited">
+          <div class="col-md-2">
+            Mật khẩu mới
+          </div>
+          <div class="col-md-5">
+            <input class="form-control" required type="password" name="newPass" [(ngModel)]="newPass">
+            <div *ngIf="isSubmit && !newPass.trim()" class="errors-mess">
+              <span>Mật khẩu mới là bắt buộc</span>
+            </div>
+          </div>
+        </div>
+        <div class="row form-group requited">
+          <div class="col-md-2">
+            Xác nhận mật khẩu mới
+          </div>
+          <div class="col-md-5">
+            <input class="form-control" required type="password" name="reTypePass" [(ngModel)]="reTypePass">
+            <div class="errors-mess">
+              <span *ngIf="isSubmit && !reTypePass.trim()">Xác nhận mật khẩu là bắt buộc</span>
+              <span *ngIf="isSubmit && reTypePass.trim() && newPass.trim() && (newPass != reTypePass)">Mật khẩu xác nhận không đúng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

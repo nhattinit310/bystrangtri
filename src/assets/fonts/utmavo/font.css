@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'Roboto', sans-serif;
+	/* src: url('./Roboto.eot'); */
+	src: local('Roboto'), url('./Roboto-Regular.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_40183">Text with this font applied</p> */
+.fontsforweb_fontid_40183 {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

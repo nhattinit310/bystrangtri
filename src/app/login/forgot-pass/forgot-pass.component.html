@@ -1,0 +1,26 @@
+<app-frames>
+  <form #forgotForm="ngForm">
+    <div *ngIf="apiError" class="alert alert-danger">
+      {{apiError}}
+    </div>
+    <div class="text-center">
+      <h4>Vui lòng nhập địa chỉ email của bạn để nhận mã xác nhận</h4>
+    </div>
+    <div class="form-group padding-top-15">
+      <label>Địa chỉ email</label>
+      <input class="form-control" required name="email" [(ngModel)]="email" #email1="ngModel">
+      <div class="errors-mess">
+        <div *ngIf="email1.errors && (email1.dirty || email1.touched)">
+          <span>Email là bắt buộc</span>
+        </div>
+      </div>
+    </div>
+    <!-- <div>{{email.value}}</div> -->
+    <div class="form-group">
+      <a style="width: 100%" class="btn btn-danger" (click)="sendEmail()">Gửi</a>
+    </div>
+    <div class="form-group text-center" style="padding-top: 41px">
+      <a routerLink="/login">Trở về Đăng nhập</a>
+    </div>
+  </form>
+</app-frames>

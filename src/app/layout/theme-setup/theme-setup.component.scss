@@ -1,0 +1,23 @@
+.label-file {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 34px;
+    font-weight: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.theme-img {
+    padding-bottom: 15px;
+    img {
+        border: 4px solid white;
+        &:hover {
+            border: 4px solid lightgray;
+        }
+    }
+}
+
+.text-err {
+    color: red;
+    font-size: .8em;
+}

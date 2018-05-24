@@ -1,0 +1,23 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span class="padding-right-15">
+        <a class="" routerLink="/accounts">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </span>
+      <span>
+        <strong>Thêm mới tài khoản</strong>
+      </span>
+
+      <span class="pull-right">
+        <a (click)="createUser()" class="btn_action">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+        </a>
+      </span>
+    </div>
+    <div class="col-md-12 page-content">
+      <account-form [isCreate]="true" [user]="user" [isValid]="false"></account-form>
+    </div>
+  </div>
+</div>

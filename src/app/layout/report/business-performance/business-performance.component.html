@@ -1,0 +1,45 @@
+<div class="padding-left-right-15">
+  <div class="row">
+    <div class="col-lg-12 page-title">
+      <span>
+        <strong>Báo cáo hiệu quả kinh doanh</strong>
+      </span>
+    </div>
+    <div class="col-md-12 page-content" style="padding-bottom: 15px;">
+      <div class="form-group row">
+        <div class="col-md-12 col-lg-8 col-custom-1200-1360 padding-left-0">
+          <div class="col-md-2 line-height-34">Chọn dữ liệu</div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Từ ngày" bsDatepicker [(ngModel)]="from" [bsConfig]="bsConfig">
+          </div>
+          <div class="col-md-2 padding-left-0">
+            <input class="form-control" placeholder="Đến ngày" bsDatepicker [(ngModel)]="to" [bsConfig]="bsConfig">
+          </div>
+          <button class="btn default-btn" (click)="getReport()">OK</button>
+        </div>
+      </div>
+      <div class="errors-mess">
+        <span *ngIf="from > to">Ngày bắt đầu không được lớn hơn ngày kết thúc</span>
+        <span *ngIf="!from && to && isSubmit">Bạn chưa chọn ngày bắt đầu</span>
+        <span *ngIf="from && !to && isSubmit">Bạn chưa chọn ngày kết thúc</span>
+        <span *ngIf="!from && !to && isSubmit">Bạn chưa chọn ngày bắt đầu và kết thúc</span>
+      </div>
+      <table class="row-border hover table-striped dataTable">
+        <tbody>
+          <tr>
+            <td style="width: 50%;"><strong>Tổng giá trị bán ra</strong></td>
+            <td class="number-right">{{reportData?.totalRevenue | vndCurrency: ' VNĐ': 2}}</td>
+          </tr>
+          <tr>
+            <td><strong>Tổng giá trị mua vào</strong></td>
+            <td class="number-right">{{reportData?.totalCost | vndCurrency: ' VNĐ': 2}}</td>
+          </tr>
+          <tr>
+            <td><strong>Hiệu quả kinh doanh</strong></td>
+            <td class="number-right">{{reportData?.profit | vndCurrency: ' VNĐ': 2}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

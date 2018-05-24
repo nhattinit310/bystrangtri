@@ -1,0 +1,37 @@
+<div class="padding-left-right-15">
+    <div class="row">
+      <div class="col-lg-12 page-title">
+        <span>
+          <strong>Tài khoản ngân hàng</strong>
+        </span>
+      </div>
+      <div class="col-md-12 page-content">
+        <div class="form-group row">
+          <div class="col-md-12 col-lg-8 col-custom-1200-1360 padding-left-0">
+            <div class="col-md-2 line-height-34">Chọn dữ liệu</div>
+            <div class="col-md-2 padding-left-0">
+              <select class="form-control" [(ngModel)]="bankId">
+                <option disabled value="0">Tên ngân hàng</option>
+                <option *ngFor="let bank of bankCompany | async" [value]="bank.name">{{bank.value}}</option>
+              </select>
+            </div>
+            <div class="col-md-2 padding-left-0">
+              <input class="form-control" placeholder="Từ ngày" [(ngModel)]="fromDate" bsDatepicker [bsConfig]="bsConfig">
+            </div>
+            <div class="col-md-2 padding-left-0">
+              <input class="form-control" placeholder="Đến ngày" [(ngModel)]="toDate" bsDatepicker [bsConfig]="bsConfig">
+            </div>
+            <button (click)="getReport()" class="btn default-btn">OK</button>
+          </div>
+        </div>
+        <div class="errors-mess">
+          <span *ngIf="fromDate > toDate">Ngày bắt đầu không được lớn hơn ngày kết thúc<br></span>
+          <span *ngIf="!fromDate && toDate && isSubmit">Bạn chưa chọn ngày bắt đầu<br></span>
+          <span *ngIf="fromDate && !toDate && isSubmit">Bạn chưa chọn ngày kết thúc<br></span>
+          <span *ngIf="!fromDate && !toDate && isSubmit">Bạn chưa chọn ngày bắt đầu và kết thúc<br></span>
+          <span *ngIf="bankId == 0 && isSubmit">Bạn chưa chọn ngân hàng</span>
+        </div>
+        <bank-account-table [src]="'pq'" [bankId]="bankId" [fromDate]="fromDate" [toDate]="toDate" [dtOptions]="dtOptions" [bankAccounts]="bankAccounts"></bank-account-table>
+      </div>
+    </div>
+  </div>
